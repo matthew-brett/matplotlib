@@ -9,6 +9,8 @@ PYTHON=python${PYVERSION}
 MACOSX_DEPLOYMENT_TARGET=10.6
 OSX_SDK_VER=10.6
 ARCH_FLAGS?=-arch i386 -arch x86_64
+CC=gcc-4.0
+CXX=g++-4.0
 
 # Dependency versions and URLs
 #
@@ -21,11 +23,11 @@ FREETYPEVERSION=2.5.0.1
 
 ZLIBFILE=zlib-${ZLIBVERSION}.tar.gz
 ZLIBDIR=$(basename $(basename ${ZLIBFILE}))
-ZLIBURL=http://sourceforge.net/projects/libpng/files/zlib/${ZLIBVERSION}/${ZLIBFILE}/download
+ZLIBURL=http://zlib.net/${ZLIBFILE}
 
 PNGFILE=libpng-${PNGVERSION}.tar.gz
 PNGDIR=$(basename $(basename ${PNGFILE}))
-PNGURL=http://sourceforge.net/projects/libpng/files/libpng15/older-releases/${PNGVERSION}/${PNGFILE}/download
+PNGURL=ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16/${PNGFILE}
 
 FREETYPEFILE=freetype-${FREETYPEVERSION}.tar.bz2
 FREETYPEDIR=$(basename $(basename ${FREETYPEFILE}))
@@ -35,7 +37,10 @@ FREETYPEURL=http://download.savannah.gnu.org/releases/freetype/${FREETYPEFILE}
 
 export PKG_CONFIG_PATH=${PREFIX}/lib/pkgconfig
 export CFLAGS=${ARCH_FLAGS} -I${PREFIX}/include -I${PREFIX}/include/freetype2 -isysroot /Developer/SDKs/MacOSX${OSX_SDK_VER}.sdk
+export CPPFLAGS=${CFLAGS}
 export LDFLAGS=${ARCH_FLAGS} -L${PREFIX}/lib -syslibroot,/Developer/SDKs/MacOSX${OSX_SDK_VER}.sdk
+export CC
+export CXX
 export MACOSX_DEPLOYMENT_TARGET
 
 help:
