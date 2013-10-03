@@ -3,7 +3,7 @@
 # make -f make.osx PREFIX=/Users/jdhunter/dev PYVERSION=2.6 fetch deps mpl_install
 # (see README.osx for more details)
 
-MPLVERSION=1.1.0
+MPLVERSION=1.3.0
 PYVERSION=2.6
 PYTHON=python${PYVERSION}
 MACOSX_DEPLOYMENT_TARGET=10.6
@@ -15,9 +15,9 @@ ARCH_FLAGS?=-arch i386 -arch x86_64
 # Adjusting these version numbers should be enough most of the time,
 # but the download URLs are subject to change.
 
-ZLIBVERSION=1.2.5
-PNGVERSION=1.5.4
-FREETYPEVERSION=2.4.6
+ZLIBVERSION=1.2.8
+PNGVERSION=1.6.6
+FREETYPEVERSION=2.5.0.1
 
 ZLIBFILE=zlib-${ZLIBVERSION}.tar.gz
 ZLIBDIR=$(basename $(basename ${ZLIBFILE}))
