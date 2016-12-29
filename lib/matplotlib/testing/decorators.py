@@ -392,14 +392,13 @@ def _image_directories(func):
             res = None
             for sub_mod in module_name.split('.'):
                 try:
-                    print('Trying import', sub_mod, 'path', path)
                     res = file, path, _ = imp.find_module(sub_mod, path)
                     path = [path]
                     if file is not None:
                         file.close()
                 except ImportError:
                     # assume namespace package
-                    path = sys.modules[sub_mod].__path__
+                    path = [sys.modules[sub_mod].__path__]
                     res = None, path, None
             return res
 
