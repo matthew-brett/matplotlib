@@ -390,9 +390,9 @@ def _image_directories(func):
                As for imp.find_module(), the return value is a 3-element
                tuple (file, pathname, description)."""
             res = None
-            print('finding dotted', module_name)
             for sub_mod in module_name.split('.'):
                 try:
+                    print('Trying import', sub_mod, 'path', path)
                     res = file, path, _ = imp.find_module(sub_mod, path)
                     path = [path]
                     if file is not None:
