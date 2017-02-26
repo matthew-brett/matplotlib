@@ -7,6 +7,7 @@ import os
 import sys
 import tempfile
 import warnings
+from subprocess import check_call, PIPE
 
 import pytest
 
@@ -14,6 +15,20 @@ from matplotlib.font_manager import (
     findfont, FontProperties, fontManager, json_dump, json_load, get_font,
     get_fontconfig_fonts, is_opentype_cff_font, fontManager as fm)
 from matplotlib import rc_context
+
+
+def _fc_list_check():
+    """ Return skip flag (bool), reason (str) for fontconfig test decorator
+    """
+    if sys.platform == 'win32':
+        return True, 'no fontconfig on Windows'
+    if six.PY2:
+        FileNotFoundError = OSError
+    try:
+        check_call(['fc-list', '-V'], stdout=PIPE, stderr=PIPE)
+    except FileNotFoundError:
+        return True, 'no fontconfig installed on system'
+    return False, ''
 
 
 def test_font_priority():
@@ -65,6 +80,6 @@ def test_otf():
         assert res == is_opentype_cff_font(f)
 
 
-@pytest.mark.skipif(sys.platform == 'win32', reason='no fontconfig on Windows')
+@pytest.mark.skipif(*_fc_list_check())
 def test_get_fontconfig_fonts():
     assert len(get_fontconfig_fonts()) > 1
